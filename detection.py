@@ -68,7 +68,6 @@ def get_gesture_in_each_frame(cap):
                    1, (0,0,255), 2, cv2.LINE_AA)
 
     # Show the final output
-    cv2.imshow("Output", frame)
 
     return className
 

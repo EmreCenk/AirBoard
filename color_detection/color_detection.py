@@ -20,7 +20,6 @@ def processFrame(img, lowerRange, upperRange):
 
                 averageX = x + w / 2
                 averageY = y + h / 2
-
                 return (int(averageX), int(averageY))
 
     # cv2.imshow("masked", mask)

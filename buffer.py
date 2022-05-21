@@ -1,27 +1,28 @@
 import cv2
 import numpy as np
-from main import upperRange, lowerRange
+from constants import upperRange, lowerRange
 from color_detection.color_detection import processFrame
 
 
-cap = cv2.VideoCapture(0)
-width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+def init_buffer(cap):
+    global drawing_buf
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    drawing_buf = np.zeros((height, width, 4), dtype="uint8")
 
-drawing_buf = np.zeros((height, width, 4), dtype="uint8")
+def draw_marker(ret, frame, gesture):
 
-while cap.isOpened():
-    ret, frame = cap.read()
     if not ret:
         print("error!")
-        continue
+        return
 
     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2RGBA)
 
     # Edit drawing buffer
     drawing_coords = processFrame(frame, lowerRange, upperRange)
-    if drawing_coords:
+    if drawing_coords and gesture == "fist":
         # Draw small circle
+        print("DRAWING:", drawing_coords)
         cv2.circle(
             img=drawing_buf,
             center=drawing_coords,
@@ -49,10 +50,5 @@ while cap.isOpened():
             thickness=10,
         )
 
-    cv2.imshow("Webcam Capture", frame)
+    return frame
 
-    if cv2.waitKey(1) == ord("q"):
-        break
-
-cap.release()
-cv2.destroyAllWindows()
