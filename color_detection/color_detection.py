@@ -6,7 +6,7 @@ upperRange = np.array([115,255,255])
 
 video = cv2.VideoCapture(0)
 
-while True:
+def processFrame():
     success, img = video.read()
     image = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     mask = cv2.inRange(image, lowerRange, upperRange)
@@ -23,7 +23,7 @@ while True:
                 averageX = x + w/2
                 averageY = y + h/2
     
-                print(averageX, averageY)
+                return (averageX, averageY)
 
 
     cv2.imshow("masked", mask)
