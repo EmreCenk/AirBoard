@@ -10,7 +10,9 @@ def init_buffer(cap):
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     drawing_buf = np.zeros((height, width, 4), dtype="uint8")
 
-def draw_marker(ret, frame, gesture):
+
+def draw_marker(ret, frame, gesture, last_pos):
+    marker_pos = None
 
     if not ret:
         print("error!")
@@ -22,14 +24,17 @@ def draw_marker(ret, frame, gesture):
     drawing_coords = processFrame(frame, lowerRange, upperRange)
     if drawing_coords and gesture == "fist":
         # Draw small circle
-        print("DRAWING:", drawing_coords)
-        cv2.circle(
-            img=drawing_buf,
-            center=drawing_coords,
-            radius=1,
-            color=(255, 0, 0, 255),
-            thickness=5,
-        )
+        marker_pos = drawing_coords
+
+        if last_pos:
+            # Draw line from last_pos to marker_pos
+            cv2.line(
+                img=drawing_buf,
+                pt1=last_pos,
+                pt2=marker_pos,
+                color=(255, 0, 0, 255),
+                thickness=5,
+            )
 
     # Convert alpha channel of drawing_buf to a mask
     _, _, _, alpha = cv2.split(drawing_buf)
@@ -50,5 +55,4 @@ def draw_marker(ret, frame, gesture):
             thickness=10,
         )
 
-    return frame
-
+    return frame, marker_pos
