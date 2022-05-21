@@ -1,12 +1,8 @@
 import cv2
 import numpy as np
 
-lowerRange = np.array([100,100,89])
-upperRange = np.array([115,255,255])
 
-video = cv2.VideoCapture(0)
-
-def processFrame():
+def processFrame(video, lowerRange, upperRange):
     success, img = video.read()
     image = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     mask = cv2.inRange(image, lowerRange, upperRange)
@@ -26,8 +22,8 @@ def processFrame():
                 return (averageX, averageY)
 
 
-    cv2.imshow("masked", mask)
-    cv2.imshow('cam', img)
+    # cv2.imshow("masked", mask)
+    # cv2.imshow('cam', img)
 
     cv2.waitKey(1)
 
