@@ -1,12 +1,12 @@
 from detection import get_gesture_in_each_frame
-from color_detection import processFrame
+from color_detection.color_detection import processFrame
 
 import cv2
 import numpy as np
 
-#color detection stuff
-lowerRange = np.array([100,100,89])
-upperRange = np.array([115,255,255])
+# color detection stuff
+lowerRange = np.array([100, 100, 89])
+upperRange = np.array([115, 255, 255])
 
 video = cv2.VideoCapture(0)
 
