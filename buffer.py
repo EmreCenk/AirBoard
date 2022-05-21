@@ -5,18 +5,15 @@ from color_detection.color_detection import processFrame
 
 
 def init_buffer(cap):
-    global drawing_buf
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     drawing_buf = np.zeros((height, width, 4), dtype="uint8")
+    return drawing_buf
 
 
-def draw_marker(ret, frame, gesture, last_pos):
+def draw_marker(drawing_buf, frame, gesture, last_pos):
+    print("sjgfwehj")
     marker_pos = None
-
-    if not ret:
-        print("error!")
-        return
 
     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2RGBA)
 
