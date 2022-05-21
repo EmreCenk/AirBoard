@@ -16,7 +16,7 @@ while True:
 
     if len(contours) != 0:
         for contour in contours:
-            if cv2.contourArea(contour) > 500:
+            if cv2.contourArea(contour) > 1000:
                 x, y, w, h = cv2.boundingRect(contour) 
                 cv2.rectangle(mask, (x,y), (x+w, y+h), (0, 0, 255), 3)
 
