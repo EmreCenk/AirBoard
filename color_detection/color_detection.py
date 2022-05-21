@@ -1,11 +1,9 @@
 import cv2
 import numpy as np
 
-lowerRange = np.array([100, 100, 89])
-upperRange = np.array([115, 255, 255])
 
 
-def processFrame(img):
+def processFrame(img, lowerRange, upperRange):
     image = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     mask = cv2.inRange(image, lowerRange, upperRange)
 

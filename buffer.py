@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-
+from main import upperRange, lowerRange
 from color_detection.color_detection import processFrame
 
 
@@ -19,7 +19,7 @@ while cap.isOpened():
     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2RGBA)
 
     # Edit drawing buffer
-    drawing_coords = processFrame(frame)
+    drawing_coords = processFrame(frame, lowerRange, upperRange)
     if drawing_coords:
         # Draw small circle
         cv2.circle(
